@@ -1,4 +1,5 @@
-# Cookbook
+# Todo App
+The project is part of pre-assignment. App was built in TypeScript, Angular and FireBase 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.1.
 
