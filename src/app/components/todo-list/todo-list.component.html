@@ -1,0 +1,44 @@
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-sm-3 col-md-2 mr-0" routerLink="/register-student">
+    <i class="fas fa-book"></i>
+  </a>
+  <ul class="nav flex-column" *ngIf="authService.userData as user">
+    <li class="nav-link ">
+      <p>Welcome, {{(user.displayName) ? user.displayName : 'User'}}</p>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" (click)="authService.SignOut()">
+        <i class="fas fa-sign-out-alt"></i>Log out
+      </a>
+    </li>
+  </ul>
+</nav>
+<div class='card'>
+<input
+  type='text'
+  class='todo-input'
+  placeholder="Enter task here"
+  [(ngModel)]='todoTitle'
+  (keyup.enter)='addTodo()'>
+
+  <todo-item
+  *ngFor="let todo of todoService.todosFiltered()"
+  [todo]="todo"
+></todo-item>
+
+<div class='extra-container'>
+  <div><label><input type='checkbox' (change)='todoService.checkAll()'>   Check All</label></div>
+  <div>{{todoService.remaining()}} items left</div>
+</div>
+
+<div class='extra-container'>
+  <div>
+    <button [ngClass]="{'active' : todoService.filter === 'all'}" (click)="todoService.filter = 'all'">All</button>
+    <button [ngClass]="{'active' : todoService.filter === 'active'}" (click)="todoService.filter = 'active'">Active</button>
+    <button [ngClass]="{'active' : todoService.filter === 'completed'}" (click)="todoService.filter = 'completed'">Done</button>
+  </div>
+  <div *ngIf='todoService.atLeastOneCompleted()'>
+    <button (click) = 'todoService.clearCompleted()'>Clear</button>
+  </div>
+</div>
+</div>
